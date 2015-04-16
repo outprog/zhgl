@@ -1,0 +1,25 @@
+.navbar-default.sidebar(role='navigation')
+    .sidebar-nav.navbar-collapse
+        ul#side-menu.nav
+            li.sidebar-search
+                .input-group.custom-search-form
+                    input.form-control(type='text', placeholder='Search...')
+                    span.input-group-btn
+                        button.btn.btn-default(type='button')
+                            i.fa.fa-search
+                // /input-group
+            li
+                a(href='#')
+                    i.fa.fa-dashboard.fa-fw
+                    |  Dashboard
+            li
+                a(href='#')
+                    i.fa.fa-bar-chart-o.fa-fw
+                    |  Charts
+                    span.fa.arrow
+                ul.nav.nav-second-level
+                    li
+                        a(href='#' class='a-sidebar-ie' id='www.cannondalefun.com') CannondaleFun
+                    li
+                        a(href='#' class='a-sidebar-ie' id='www.outprog.com') Outprog.com
+                // /.nav-second-level

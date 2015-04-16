@@ -1,5 +1,8 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    #page-wrapper
+        .container-fluid
+            .row
+                .col-lg-12
+                    iframe( id='myiframe', frameborder='0', height='800', width='100%', src='')
