@@ -7,19 +7,24 @@
                     span.input-group-btn
                         button.btn.btn-default(type='button')
                             i.fa.fa-search
-                // /input-group
-            li
-                a(href='#')
-                    i.fa.fa-dashboard.fa-fw
-                    |  Dashboard
-            li
-                a(href='#')
-                    i.fa.fa-bar-chart-o.fa-fw
-                    |  Charts
-                    span.fa.arrow
-                ul.nav.nav-second-level
-                    li
-                        a(href='#' class='a-sidebar-ie' id='www.cannondalefun.com') CannondaleFun
-                    li
-                        a(href='#' class='a-sidebar-ie' id='www.outprog.com') Outprog.com
-                // /.nav-second-level
+
+            mixin menulist( m_l)
+                - each l in m_l
+                    if l.sub
+                        li
+                            a(href='#')
+                                if !l.seq
+                                    i.fa.fa-dashboard.fa-fw
+                                |   #{l.name}
+                                span.fa.arrow
+                            if l.seq
+                                ul.nav.nav-third-level
+                                    +menulist( l.sub)
+                            else
+                                ul.nav.nav-second-level
+                                    +menulist( l.sub)
+                    else
+                        li
+                            a(href='#' id='10.5.1.203:8080#{l.href}?UserID=#{user}&DeptID=#{deptid}' class='a-sidebar-ie')
+                                |   #{l.name}
+            +menulist( menu_list)

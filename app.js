@@ -10,6 +10,7 @@ var MongoStore = require( 'connect-mongo')(session);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var services = require( './routes/services');
 
 var app = express();
 
@@ -40,11 +41,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 // locals
 app.use( function( req, res, next) {
     res.locals.user = req.session.user;
+    res.locals.username = req.session.username;
+    res.locals.deptid = req.session.deptid;
     next();
 });
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/services', services);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
