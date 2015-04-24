@@ -1,33 +1,40 @@
 // 获取远程数据
 // create by xiongwei
 
-// 配置参数
+// conf 配置参数
 // hostname 服务器ip
 // port 服务器端口
 // path 服务路径
 
-// 传参
-// userid 用户id
-// type 服务类型：user:获取用户密码, sys_menu:获取系统菜单
-// callback 回调函数，返回json
+/* // 传参
+   data:    {   userid: req.session.user,
+                type: 'sys_menu'
+            }
+   opt:     {
+                path: '/mis_serve/services.jsp'
+            }
+   type:服务类型：user:获取用户密码, sys_menu:获取系统菜单
+   path:子服务路径
+   callback 回调函数，返回json
+*/
 
 var http = require( 'http');
 var querystring = require( 'querystring');
 var conf = require( '../conf');
 
-function remote_get( userid, type, callback) {
+function remote_get( data, opt, callback) {
 
-    var data = "";
+    var res = "";
 
     // 封装数据，准备发起远程访问
     var postData = querystring.stringify( {
-        'userid' : userid,
-        'type': type
+        'userid' : data.userid,
+        'type': data.type
     });
     var options = {
       hostname: conf.remote_service.hostname,
       port: conf.remote_service.port,
-      path: conf.remote_service.path + '/mis_serve/services.jsp',
+      path: conf.remote_service.path + opt.path,
       method: 'POST',
       headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -41,11 +48,11 @@ function remote_get( userid, type, callback) {
 
 
         remote_res.on( 'data', function( chunk) {
-            data += chunk;
+            res += chunk;
         });
 
         remote_res.on( 'end', function() {
-            callback( JSON.parse( data));
+            callback( JSON.parse( res));
         });
     });
 

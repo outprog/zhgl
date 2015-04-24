@@ -14,7 +14,7 @@
                         li
                             a(href='#')
                                 if !l.seq
-                                    i.fa.fa-dashboard.fa-fw
+                                    i.fa.fa-th-list
                                 |   #{l.name}
                                 span.fa.arrow
                             if l.seq
@@ -25,6 +25,10 @@
                                     +menulist( l.sub)
                     else
                         li
-                            a(href='#' id='#{conf.remote_service.hostname}:#{conf.remote_service.port}#{l.href}?UserID=#{user}&DeptID=#{deptid}' class='a-sidebar-ie')
-                                |   #{l.name}
+                            if l.pla == 'ie'
+                                a(href='#' id='#{conf.remote_service.hostname}:#{conf.remote_service.port}#{l.href}?UserID=#{user}&DeptID=#{deptid}' class='a-sidebar-ie')
+                                    |   #{l.name}
+                            else
+                                a(href='#' id='127.0.0.1:3000#{l.href}' class='a-sidebar-ie')
+                                    |   #{l.name}
             +menulist( menu_list)

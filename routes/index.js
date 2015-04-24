@@ -11,8 +11,14 @@ var remote_get = require( '../util/remote_get');
 router.get('/', checkLogin);
 router.get('/', function( req, res, next) {
     // 远程获取菜单数据
-    remote_get( req.session.user, 'sys_menu', function( menu) {
-        res.render( 'index', { menu_list: menu});
+    remote_get( {   userid: req.session.user,
+                    type: 'sys_menu'
+                },
+                {
+                    path: '/mis_serve/services.jsp'
+                },
+                function( menu) {
+                    res.render( 'index', { menu_list: menu});
     });
 
 });
@@ -31,18 +37,24 @@ router.post('/login', function( req, res) {
     //console.log( ps_md5);
 
     // 获取远程数据并验证密码
-    remote_get( req.body.userid, 'user', function( d) {
-        try {
-            if( d[0].USER_PASSWORD == ps_md5) {
-                req.session.user = req.body.userid;
-                req.session.username = d[0].USER_NAME;
-                req.session.deptid = d[0].DEPT_ID;
-                res.redirect( '/');
-            }
-        } catch( e) {
-            console.log( e);
-            res.redirect( '/login');
-        }
+    remote_get( {   userid: req.body.userid,
+                    type: 'user'
+                },
+                {
+                    path: '/mis_serve/services.jsp'
+                },
+                function( d) {
+                    try {
+                        if( d[0].USER_PASSWORD == ps_md5) {
+                            req.session.user = req.body.userid;
+                            req.session.username = d[0].USER_NAME;
+                            req.session.deptid = d[0].DEPT_ID;
+                            res.redirect( '/');
+                        }
+                    } catch( e) {
+                        console.log( e);
+                        res.redirect( '/login');
+                    }
     });
 });
 // 登陆注销
