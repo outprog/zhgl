@@ -8,11 +8,12 @@
 
 // 传参
 // userid 用户id
-// type 服务类型：password:获取用户密码, sys_menu:获取系统菜单
+// type 服务类型：user:获取用户密码, sys_menu:获取系统菜单
 // callback 回调函数，返回json
 
 var http = require( 'http');
 var querystring = require( 'querystring');
+var conf = require( '../conf');
 
 function remote_get( userid, type, callback) {
 
@@ -24,9 +25,9 @@ function remote_get( userid, type, callback) {
         'type': type
     });
     var options = {
-      hostname: '10.5.1.203',
-      port: 8080,
-      path: '/misapp/mis_serve/services.jsp',
+      hostname: conf.remote_service.hostname,
+      port: conf.remote_service.port,
+      path: conf.remote_service.path + '/mis_serve/services.jsp',
       method: 'POST',
       headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

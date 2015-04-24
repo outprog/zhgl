@@ -7,7 +7,6 @@ var crypto = require( 'crypto');
 
 var remote_get = require( '../util/remote_get');
 
-
 /* GET home page. */
 router.get('/', checkLogin);
 router.get('/', function( req, res, next) {
@@ -32,14 +31,12 @@ router.post('/login', function( req, res) {
     //console.log( ps_md5);
 
     // 获取远程数据并验证密码
-    remote_get( req.body.userid, 'password', function( d) {
+    remote_get( req.body.userid, 'user', function( d) {
         try {
             if( d[0].USER_PASSWORD == ps_md5) {
                 req.session.user = req.body.userid;
                 req.session.username = d[0].USER_NAME;
                 req.session.deptid = d[0].DEPT_ID;
-                ////////////////////////////?????
-                console.log( d[0].DEPT_ID);
                 res.redirect( '/');
             }
         } catch( e) {

@@ -10,9 +10,9 @@ router.get('/', function(req, res, next) {
 
 // 返回菜单
 router.get('/menus', function( req, res) {
-    remote_get( req.session.user, 'sys_menu', function( d) {
-        res.send( d);
-    });
+//    remote_get( req.session.user, 'sys_menu', function( d) {
+//        res.send( d);
+//    });
 });
 
 module.exports = router;

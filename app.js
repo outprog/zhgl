@@ -8,6 +8,8 @@ var session = require( 'express-session');
 var mongoose = require( 'mongoose');
 var MongoStore = require( 'connect-mongo')(session);
 
+var conf = require( './conf');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var services = require( './routes/services');
@@ -43,6 +45,7 @@ app.use( function( req, res, next) {
     res.locals.user = req.session.user;
     res.locals.username = req.session.username;
     res.locals.deptid = req.session.deptid;
+    res.locals.conf = conf;
     next();
 });
 
